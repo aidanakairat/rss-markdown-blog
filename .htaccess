@@ -1,0 +1,23 @@
+php_value display_errors 1
+php_value error_reporting 2047
+
+Options +FollowSymlinks -MultiViews
+
+<IfModule mod_php5.c>
+    php_value magic_quotes_gpc off
+    php_value upload_max_filesize 10M
+</IfModule>
+
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+
+    RewriteCond %{ENV:REDIRECT_STATUS} !^$
+    RewriteRule .* - [L]
+
+    RewriteCond %{REQUEST_FILENAME}/index.markdown -f
+    RewriteRule ^([^/]*/)?([^\.]*/)?$ index.php?markdown=$1$2index [L]
+
+    RewriteCond %{REQUEST_FILENAME}.markdown -f
+    RewriteRule ^([^/]*/)?([^\.]*)$ index.php?markdown=$1$2 [L]
+</IfModule>

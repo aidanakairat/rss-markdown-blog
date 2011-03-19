@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<archive>
+    <item>
+        <link>http://mysite.org/archive</link>
+        <title>Archive</title>
+        <description><![CDATA[
+Archive article
+]]></description>
+        <pubDate>Sun, 20 Mar 2011 00:02:55 +0300</pubDate>
+        <guid isPermaLink="false">§1</guid>
+    </item>
+</archive>

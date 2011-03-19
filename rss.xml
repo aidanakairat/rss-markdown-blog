@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>My Blog</title>
+    <link>http://mysite.org/</link>
+    <description></description>
+    <language>en</language>
+
+    <item>
+        <title>Markdown syntax</title>
+        <description><![CDATA[
+
+]]></description>
+        <link>http://mysite.org/markdown</link>
+        <pubDate>Sun, 20 Mar 2011 00:02:55 +0300</pubDate>
+        <guid isPermaLink="false">§2</guid>
+        <tag>markdown</tag>
+    </item>
+
+</channel>
+<include xmlns="http://www.w3.org/2001/XInclude" href="rss_archive.xml"/>
+</rss>
