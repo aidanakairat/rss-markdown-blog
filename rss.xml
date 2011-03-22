@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<?xml-stylesheet href="rss.xslt" type="text/xsl" media="screen"?>
+<rss version="2.0" xmlns:blog="rss-markdown-blog">
 <channel>
     <title>My Blog</title>
     <link>http://mysite.org/</link>
@@ -9,12 +10,12 @@
     <item>
         <title>Markdown syntax</title>
         <description><![CDATA[
-
+Description markdown syntax
 ]]></description>
         <link>http://mysite.org/markdown</link>
         <pubDate>Sun, 20 Mar 2011 00:02:55 +0300</pubDate>
         <guid isPermaLink="false">§2</guid>
-        <tag>markdown</tag>
+        <blog:tag>markdown</blog:tag>
     </item>
 
 </channel>

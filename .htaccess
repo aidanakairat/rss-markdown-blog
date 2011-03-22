@@ -1,6 +1,8 @@
 php_value display_errors 1
 php_value error_reporting 2047
 
+ErrorDocument 404 /index.php?404
+
 Options +FollowSymlinks -MultiViews
 
 <IfModule mod_php5.c>
@@ -15,9 +17,11 @@ Options +FollowSymlinks -MultiViews
     RewriteCond %{ENV:REDIRECT_STATUS} !^$
     RewriteRule .* - [L]
 
-    RewriteCond %{REQUEST_FILENAME}/index.markdown -f
+    RewriteRule ^tag/([^\./]*)?$ index.php?tag=$1 [L]
+
+    RewriteCond %{REQUEST_FILENAME}/index.md -f
     RewriteRule ^([^/]*/)?([^\.]*/)?$ index.php?markdown=$1$2index [L]
 
-    RewriteCond %{REQUEST_FILENAME}.markdown -f
+    RewriteCond %{REQUEST_FILENAME}.md -f
     RewriteRule ^([^/]*/)?([^\.]*)$ index.php?markdown=$1$2 [L]
 </IfModule>
