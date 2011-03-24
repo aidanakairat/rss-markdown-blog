@@ -22,11 +22,11 @@ body {
     padding: 0;
     font-family: Arial, sans-serif; 
     line-height: 1.5em;
-    font-size: 10px; /* IE5 Win */
+    font-size: 12px; /* IE5 Win */
     voice-family: "\"}\""; 
     voice-family: inherit;
-    font-size: 10px; /* easy scaling */
-    font-size: 0.76em;
+    font-size: 12px; /* easy scaling */
+    font-size: 1em;
     color: #000;
     
 }
@@ -34,6 +34,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
+    padding-bottom: 0.5em;
     font-family: Arial, sans-serif;
     color: #777;    
 }
@@ -44,14 +45,16 @@ p, blockquote, ul, ol {
     margin-bottom:0.5em;
 }
 p {
-    line-height:1.7em;
-    font-size: 1.1em;
+    line-height:1.3em;
+    font-size: 1em;
     margin-bottom: 0.9em;
 }
 
 
 pre {
-    font-size:1.2em;
+    1font-size:0.85em;
+    background: #eee;
+    padding: 5px 10px;
 }
 
 a:link, a:visited {
@@ -96,7 +99,7 @@ dd {
     padding:0;
 }
 code{
-    font-size: 1em; 
+    font-size: 1.2em; 
 }
 
 sup,
@@ -176,6 +179,9 @@ background: url("img/twitter.png") no-repeat scroll 0 0 transparent;
 background: url("img/rss.png") no-repeat scroll 0 0 transparent;
 }
 
+#header-icons  .logo {
+    padding: 10px 80px;
+}
 #header-icons  .twitter a,
 #header-icons  .rss a{
     padding:10px 80px;
@@ -264,7 +270,7 @@ background: url("img/rss.png") no-repeat scroll 0 0 transparent;
     line-height:1.2em;
 }
 
-#main h1, #main h2 {
+#main h1 {
     font-size: 2em;     
     line-height:1.2em;
     font-weight: bold;
@@ -294,7 +300,6 @@ background: url("img/rss.png") no-repeat scroll 0 0 transparent;
 }
 
 #content ul {
-    font-family:Georgia, serif;
     margin: 0.5em 0;
     padding: 0 0 0 2em;
     list-style-type:none;
@@ -304,14 +309,12 @@ background: url("img/rss.png") no-repeat scroll 0 0 transparent;
     padding:0;
     list-style-image:url(img/bullet.png);
     line-height:130%;
-    font-size:16px; 
 }
 #main ol {
 margin:0;
 padding:0 0 0 2em;
 }
 #main ol li {
-    font-size:16px;
     margin:0.75em 0;
 }
 
@@ -365,6 +368,11 @@ padding:0 0 0 2em;
     color: #aaa;
 }
 
+hr {
+    border: none;
+    border-bottom:#ccc 1px dotted;
+    margin: 1.5em 0;
+}
 .post .comments {
     font-size:1em;
     border-bottom:#ccc 1px dotted;

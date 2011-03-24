@@ -1,6 +1,9 @@
 <?php
 // disqus.com
 $disqus = 'example';
+$months = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+define('DATE_FORMAT', 'd ? Y H:i'); // ? = $months[date('m', $date)]
+define('RECORDS_PER_PAGE', 5);
 
 if (isset($_GET['404'])) {
     header ('HTTP/1.0 404 Not Found');
@@ -41,13 +44,13 @@ function tags() {
     $i = 0;
     foreach ($tag_sort as $key=>$val) {
         echo ($i != 0 ? ', ' : '');
-        echo '<a href="/tag/'.$val.'" style="font-size: '.($tags[$val] / $tag_max * 120).'%;">'.$val.'</a>';
+        echo '<a href="/tag/'.$val.'" style="font-size: '.($tags[$val] / $tag_max * 80 + 50).'%;">'.$val.'</a>';
         $i ++;
     }
 }
 
 function content() {
-    global $rss, $blog_link;
+    global $rss, $blog_link, $months;
     if (isset($_GET['now'])) {
         echo date('r');
     } elseif (isset($_GET['404'])) {
@@ -61,36 +64,68 @@ function content() {
         foreach ($xpath->query('//item[link="'.htmlspecialchars($blog_link.$file).'"]') as $item) {
             $title = $item->getElementsByTagName('title')->item(0)->nodeValue;
             $description = $item->getElementsByTagName('description')->item(0)->nodeValue;
-            crosspost($blog_link.$file, $title, $description);
+            $date = strtotime($item->getElementsByTagName('pubDate')->item(0)->nodeValue);
+            echo '<hr />';
+            echo '<p style="float: right;"><a href="http://www.livejournal.com/update.bml?subject='.urlencode($title).'&event='.urlencode($description."\n\n".$blog_link.$file).'">LJ crosspost</a></p>';
+            echo '<p>Date: '.str_replace('?', $months[date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p>';
+            $tags = array();
+            foreach ($item->getElementsByTagNameNS('rss-markdown-blog', 'tag') as $tag) {
+                $tag_val = $tag->nodeValue;
+                $tags[] = '<a href="/tag/'.$tag_val.'">#'.$tag_val.'</a>';
+            }
+            if ($tags) echo '<p>'.(sizeof($tags)==1?'Tag':'Tags').': '.join(', ', $tags).'</p>';
         }
         if ($_GET['markdown'] != 'contacts') {
             comments();
         }
     } else {
         $xpath = new DOMXPath($rss);
-        $where = '';
+        $where = '[guid]';
         if (isset($_GET['tag'])) {
+            $tag = $_GET['tag'];
             $xpath->registerNamespace ('blog', 'rss-markdown-blog');
-            $where = '[blog:tag="'.htmlspecialchars($_GET['tag']).'"]';
+            $head_title = $tag;
+            $where = '[blog:tag="'.htmlspecialchars($tag).'"]';
         }
+        if (isset($_GET['search'])) {
+            $words = split(' ', $_GET['search']);
+            $contains = '';
+            foreach ($words as $word) {
+                $contains .= ($contains ? ' and ' : '');
+                $contains .= '(contains(title, "'.htmlspecialchars($word).'") or contains(description, "'.htmlspecialchars($word).'"))';
+            }
+            $where = '['.$contains.']';
+        }
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        $i = 0;
         foreach ($xpath->query('//item'.$where) as $item) {
-            $title = $item->getElementsByTagName('title')->item(0)->nodeValue;
-            $link = str_replace($blog_link, '/', $item->getElementsByTagName('link')->item(0)->nodeValue);
-            $date = date('d.m.Y H:i', strtotime($item->getElementsByTagName('pubDate')->item(0)->nodeValue));
-            $description = $item->getElementsByTagName('description')->item(0)->nodeValue;
-            echo '<div class="post">';
-            echo '<h2 class="title"><a href="'.$link.'" rel="bookmark">'.$title.'</a></h2>';
-            echo '<div class="meta"><p>'.$date.'</p></div>';
-            echo '<div class="entry">'.$description.'</div>';
-            echo '<p class="comments"><a href="'.$link.'#disqus_thread"></a>&nbsp;</p>';
-            echo '</div>';
+            if (($i >= ($page - 1) * RECORDS_PER_PAGE) and ($i < $page * RECORDS_PER_PAGE)) {
+                $title = $item->getElementsByTagName('title')->item(0)->nodeValue;
+                $link = str_replace($blog_link, '/', $item->getElementsByTagName('link')->item(0)->nodeValue);
+                $date = strtotime($item->getElementsByTagName('pubDate')->item(0)->nodeValue);
+                $description = $item->getElementsByTagName('description')->item(0)->nodeValue;
+                echo '<div class="post">';
+                echo '<h2 class="title"><a href="'.$link.'" rel="bookmark">'.$title.'</a></h2>';
+                echo '<div class="meta"><p>'.str_replace('?', $months[date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p></div>';
+                echo '<div class="entry">'.$description.'</div>';
+                echo '<p class="comments"><a href="'.$link.'#disqus_thread"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $tags = array();
+                foreach ($item->getElementsByTagNameNS('rss-markdown-blog', 'tag') as $tag) {
+                    $tag_val = $tag->nodeValue;
+                    $tags[] = '<a href="/tag/'.$tag_val.'">#'.$tag_val.'</a>';
+                }
+                echo join(', ', $tags);
+                echo '</p>';
+                echo '</div>';
+            }
+            $i ++;
         }
+        echo '<p class="newer-older">';
+        if ($page > 1) echo '<a style="float: left;" href="?page='.($page - 1).'">&#171; Предыдущие записи</a>';
+        if ($i > $page * RECORDS_PER_PAGE) echo '<a style="float: right;" href="?page='.($page + 1).'">Следующие записи &#187;</a>';
+        echo '</p>';
         comments_count();
     }
-}
-
-function crosspost($link, $title, $description) {
-    echo '<p><a href="http://www.livejournal.com/update.bml?subject='.urlencode($title).'&event='.urlencode($description."\n\n".$link).'">Кросспост в ЖЖ</a></p>';
 }
 
 function comments_count() {
