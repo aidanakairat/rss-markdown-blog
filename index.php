@@ -1,9 +1,21 @@
 <?php
-// disqus.com
-$disqus = 'example';
-$months = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-define('DATE_FORMAT', 'd ? Y H:i'); // ? = $months[date('m', $date)]
-define('RECORDS_PER_PAGE', 5);
+$i18n = array();
+$i18n['months'] = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+$i18n['page_not_found'] = 'Page Not Found';
+$i18n['lj_crosspost'] = 'LiveJournal.com Crosspost';
+$i18n['date'] = 'Date';
+$i18n['tag'] = 'Tag';
+$i18n['tags'] = 'Tags';
+$i18n['prev_page'] = 'Prev page';
+$i18n['next_page'] = 'Next page';
+$i18n['comments'] = 'Comments';
+if (file_exists('setting.php')) {
+    require('setting.php');
+}
+@define('DISQUS', 'example'); // disqus.com
+@define('DATE_FORMAT', 'd ? Y H:i'); // ? = $i18n['months'][date('m', $date)]
+@define('RECORDS_PER_PAGE', 5);
+@define('PRODUCTION', true);
 
 if (isset($_GET['404'])) {
     header ('HTTP/1.0 404 Not Found');
@@ -50,11 +62,11 @@ function tags() {
 }
 
 function content() {
-    global $rss, $blog_link, $months;
+    global $rss, $blog_link, $i18n;
     if (isset($_GET['now'])) {
         echo date('r');
     } elseif (isset($_GET['404'])) {
-        echo '<h1>Page not found</h1>';
+        echo '<h1>'.$i18n['page_not_found'].'</h1>';
     } elseif (isset($_GET['markdown'])) {
         require('markdown.php');
         $file = $_GET['markdown'];
@@ -66,16 +78,16 @@ function content() {
             $description = $item->getElementsByTagName('description')->item(0)->nodeValue;
             $date = strtotime($item->getElementsByTagName('pubDate')->item(0)->nodeValue);
             echo '<hr />';
-            echo '<p style="float: right;"><a href="http://www.livejournal.com/update.bml?subject='.urlencode($title).'&event='.urlencode($description."\n\n".$blog_link.$file).'">LJ crosspost</a></p>';
-            echo '<p>Date: '.str_replace('?', $months[date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p>';
+            echo '<p style="float: right;"><a href="http://www.livejournal.com/update.bml?subject='.urlencode($title).'&event='.urlencode($description."\n\n".$blog_link.$file).'">'.$i18n['lj_crosspost'].'</a></p>';
+            echo '<p>'.$i18n['date'].': '.str_replace('?', $i18n['months'][date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p>';
             $tags = array();
             foreach ($item->getElementsByTagNameNS('rss-markdown-blog', 'tag') as $tag) {
                 $tag_val = $tag->nodeValue;
                 $tags[] = '<a href="/tag/'.$tag_val.'">#'.$tag_val.'</a>';
             }
-            if ($tags) echo '<p>'.(sizeof($tags)==1?'Tag':'Tags').': '.join(', ', $tags).'</p>';
+            if ($tags) echo '<p>'.(sizeof($tags)==1?$i18n['tag']:$i18n['tags']).': '.join(', ', $tags).'</p>';
         }
-        if ($_GET['markdown'] != 'contacts') {
+        if ($_GET['markdown'] != 'contacts' and PRODUCTION) {
             comments();
         }
     } else {
@@ -106,9 +118,11 @@ function content() {
                 $description = $item->getElementsByTagName('description')->item(0)->nodeValue;
                 echo '<div class="post">';
                 echo '<h2 class="title"><a href="'.$link.'" rel="bookmark">'.$title.'</a></h2>';
-                echo '<div class="meta"><p>'.str_replace('?', $months[date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p></div>';
+                echo '<div class="meta"><p>'.str_replace('?', $i18n['months'][date('m', $date) - 1], date(DATE_FORMAT, $date)).'</p></div>';
                 echo '<div class="entry">'.$description.'</div>';
-                echo '<p class="comments"><a href="'.$link.'#disqus_thread"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                echo '<p class="comments tags">';
+                echo '<a href="'.$link.'#disqus_thread">'.$i18n['comments'].'</a>';
+                echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 $tags = array();
                 foreach ($item->getElementsByTagNameNS('rss-markdown-blog', 'tag') as $tag) {
                     $tag_val = $tag->nodeValue;
@@ -116,20 +130,23 @@ function content() {
                 }
                 echo join(', ', $tags);
                 echo '</p>';
-                echo '</div>';
+                echo '</div>'   ;
             }
             $i ++;
         }
         echo '<p class="newer-older">';
-        if ($page > 1) echo '<a style="float: left;" href="?page='.($page - 1).'">&#171; Предыдущие записи</a>';
-        if ($i > $page * RECORDS_PER_PAGE) echo '<a style="float: right;" href="?page='.($page + 1).'">Следующие записи &#187;</a>';
+        if ($page > 1) echo '<a style="float: left;" href="?page='.($page - 1).'">&#171; '.$i18n['prev_page'].'</a>';
+        if ($i > $page * RECORDS_PER_PAGE) echo '<a style="float: right;" href="?page='.($page + 1).'">'.$i18n['next_page'].' &#187;</a>';
         echo '</p>';
-        comments_count();
+        if (PRODUCTION) {
+            comments_count();
+        }
     }
 }
 
 function comments_count() {
-    global $disqus;
+    global $i18n;
+    $disqus = DISQUS;
     echo <<<EOF
 <script type="text/javascript">
     var disqus_shortname = '$disqus';
@@ -143,10 +160,12 @@ function comments_count() {
 EOF;
 }
 function comments() {
-    global $disqus;
+    global $i18n;
+    $disqus = DISQUS;
+    $comments = $i18n['comments'];
     echo <<<EOF
 <hr />
-<h3>Comments</h3>
+<h3>$comments</h3>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = '$disqus';
@@ -237,7 +256,7 @@ EOF;
         <strong>&copy; <?php echo date('Y'); ?> <a href="<?php echo $blog_link; ?>"><?php echo $blog_title; ?></a>
     </p>
 </div>
-<center><!-- Counters --></center>
+<div style="text-align: center;"><!-- Counters --></div>
 
 </body>
 </html>
