@@ -20,7 +20,7 @@ The CSS, XHTML and design is released under GPL: http://www.opensource.org/licen
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif; 
+    font-family: Georgia, Times New Roman, serif; 
     line-height: 1.5em;
     font-size: 12px; /* IE5 Win */
     voice-family: "\"}\""; 
@@ -32,9 +32,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
     padding: 0;
-    padding-bottom: 0.5em;
+    margin: 1em 0 0.5em 0;
     font-family: Arial, sans-serif;
     color: #777;    
 }
@@ -52,9 +51,22 @@ p {
 
 
 pre {
-    1font-size:0.85em;
     background: #eee;
     padding: 5px 10px;
+    margin-bottom: 1em;
+    overflow: auto;
+}
+#content table {
+    margin-bottom: 1em;
+}
+#content table th {
+    background: #aaa;
+    color: #fff;
+    padding: 2px 10px;
+}
+#content table td {
+    background: #eee;
+    padding: 2px 10px;
 }
 
 a:link, a:visited {
@@ -98,8 +110,8 @@ dd {
     margin:0.5em 1em;
     padding:0;
 }
-code{
-    font-size: 1.2em; 
+code {
+    font-size: 1em; 
 }
 
 sup,
@@ -122,7 +134,7 @@ sub {
 
 /* Header */
 #header {
-position:relative;
+    position:relative;
     width: 1024px;
     margin: 15px auto 0 auto;
     background:url(img/bg_header.png) no-repeat top center;
@@ -160,8 +172,8 @@ position:relative;
 }
 
 #header-icons {
-position:absolute;
-right:0;
+    position:absolute;
+    right:0;
     margin-top:10px;
 }
 
@@ -172,11 +184,11 @@ right:0;
     margin:16px 25px;
 }
 #header-icons  .twitter{
-background: url("img/twitter.png") no-repeat scroll 0 0 transparent;
+    background: url("img/twitter.png") no-repeat scroll 0 0 transparent;
 }
 
 #header-icons  .rss{
-background: url("img/rss.png") no-repeat scroll 0 0 transparent;
+    background: url("img/rss.png") no-repeat scroll 0 0 transparent;
 }
 
 #header-icons  .logo {
@@ -379,7 +391,7 @@ hr {
     color:#999;
     margin-left:5px;
     padding-left:20px;
-    background:url(img/icon_comments.gif) no-repeat left center;
+    background:url(img/comments.png) no-repeat left center;
 }
 .post .comments a {
     border-bottom:0px;
@@ -415,7 +427,7 @@ ul.authorposts li em {
 
 #content {
     float:left;
-    padding:10px 62px 40px 68px;
+    padding: 0px 62px 40px 68px;
     width:570px;
     overflow: visible;
 }
@@ -465,7 +477,7 @@ ul.authorposts li em {
 }
 #main .sidecol p, #main .sidecol form{
     /*padding:0 10px 0 18px;*/
-    margin:0;
+    1margin:0;
 }
 
 #main .sidecol p{
@@ -616,6 +628,9 @@ input.with-button ,
     border-radius:4px 0 0 4px;
 }
 
+form label {
+    display: block;
+}
 textarea{
     width: 95%;
     padding:5px;
@@ -625,6 +640,7 @@ textarea{
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
     border-radius:4px;
+    z-index: 10;
 }
 input.textbox:focus, textarea:focus, input#s:focus, input[type='text']:focus {
     border:#bbb 3px solid;
@@ -708,10 +724,10 @@ input.textbox:focus, textarea:focus, input#s:focus, input[type='text']:focus {
     padding:11px 30px 0;
     text-shadow:1px 1px 0 #fff; 
 }
-#footer p span 
+/*#footer p span 
 {
     float:right;
-}
+}*/
 #footer a:link, #footer a:visited {
     color: #777;
     border:0;
@@ -772,13 +788,28 @@ input.textbox:focus, textarea:focus, input#s:focus, input[type='text']:focus {
     margin: 0;
 }
 
-.tags{
+.tags {
     color:#999;
     font-size:0.8em;
 }
-.tags a{
+.tags a {
     color:#999;
     border:0;
+}
+.tag {
+    padding-left: 32px;
+    line-height: 24px;
+    background: url(img/tag.png) no-repeat;
+}
+.post .tag {
+    padding-left: 20px;
+    margin-left: 2em;
+    background: url(img/tag_s.png) no-repeat left center;
+}
+.date {
+    padding-left: 32px;
+    line-height: 24px;
+    background: url(img/date.png) no-repeat;
 }
 
 .newer-older {
@@ -865,18 +896,98 @@ border-radius:15px 15px 15px 15px;
 }
 
 #respond {
-clear:both;
-padding-top:15px;
+    clear: both;
+    padding-top: 15px;
 }
 
 #menu ul ul.children {
-display:none;
-position:absolute;
-left:0;
-background-color:black;
-z-index:100000;
+    display:none;
+    position:absolute;
+    left:0;
+    background-color:black;
+    z-index:100000;
 }
 
 #menu ul  li:hover ul.children {
-display:block;
+    display:block;
 }
+
+a.img:hover {
+    text-decoration: none;
+    border-bottom: none;
+}
+.crosspost {
+    float: right;
+    margin-top: -3px;
+    1width: 320px;
+}
+.crosspost a {
+    text-decoration: none;
+    border-bottom: none;
+}
+#bt_facebook {
+    float: right;
+    margin-top: 0;
+    margin-left: 7px;
+}
+#bt_twitter {
+    float: right;
+    margin-top: 3px;
+    margin-left: 0;
+}
+#bt_livejournal {
+    float: right;
+    margin-top: 3px;
+    margin-left: 20px;
+}
+
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+
+pre code .imp {font-weight: bold; color: red;}
+pre code .kw1 {color: #b1b100;}
+pre code .kw2 {color: #000000; font-weight: bold;}
+pre code .kw3 {color: #990000;}
+pre code .kw4 {color: #009900; font-weight: bold;}
+pre code .co1 {color: #666666; font-style: italic;}
+pre code .co2 {color: #666666; font-style: italic;}
+pre code .co3 {color: #0000cc; font-style: italic;}
+pre code .co4 {color: #009933; font-style: italic;}
+pre code .coMULTI {color: #666666; font-style: italic;}
+pre code .es0 {color: #000099; font-weight: bold;}
+pre code .es1 {color: #000099; font-weight: bold;}
+pre code .es2 {color: #660099; font-weight: bold;}
+pre code .es3 {color: #660099; font-weight: bold;}
+pre code .es4 {color: #006699; font-weight: bold;}
+pre code .es5 {color: #006699; font-weight: bold; font-style: italic;}
+pre code .es6 {color: #009933; font-weight: bold;}
+pre code .es_h {color: #000099; font-weight: bold;}
+pre code .br0 {color: #009900;}
+pre code .sy0 {color: #339933;}
+pre code .sy1 {color: #000000; font-weight: bold;}
+pre code .st0 {color: #0000ff;}
+pre code .st_h {color: #0000ff;}
+pre code .nu0 {color: #cc66cc;}
+pre code .nu8 {color: #208080;}
+pre code .nu12 {color: #208080;}
+pre code .nu19 {color:#800080;}
+pre code .me1 {color: #004000;}
+pre code .me2 {color: #004000;}
+pre code .re0 {color: #000088;}
+pre code span.xtra { display:block; }
+
+pre code .imp {font-weight: bold; color: red;}
+pre code .es0 {color: #000099; font-weight: bold;}
+pre code .br0 {color: #66cc66;}
+pre code .sy0 {color: #66cc66;}
+pre code .st0 {color: #ff0000;}
+pre code .sc-1 {color: #808080; font-style: italic;}
+pre code .sc0 {color: #00bbdd;}
+pre code .sc1 {color: #ddbb00;}
+pre code .sc2 {color: #339933;}
+pre code .sc3 {color: #009900;}
+pre code .re0 {color: #000066;}
+pre code .re1 {color: #000066;}
+pre code .re2 {color: #000066;}

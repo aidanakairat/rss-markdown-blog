@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet SYSTEM "entities.dtd">
+<setting i18n="en" production="false" page-records="5" format-date="? d, Y, H:i" template="template.xslt">
+    <disqus>disqus-name</disqus>
+    <blog_birthday>2011/04/14</blog_birthday>
+</setting>

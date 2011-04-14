@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet SYSTEM "entities.dtd">
+<i18n lang="en">
+    <months>
+        <month>Jan</month>
+        <month>Feb</month>
+        <month>Mar</month>
+        <month>Apr</month>
+        <month>May</month>
+        <month>Jun</month>
+        <month>Jul</month>
+        <month>Aug</month>
+        <month>Sen</month>
+        <month>Oct</month>
+        <month>Nov</month>
+        <month>Dec</month>
+    </months>
+    <page_not_found>Page Not Found</page_not_found>
+    <date>Date</date>
+    <tag>Tag</tag>
+    <tags>Tags</tags>
+    <menu>Menu</menu>
+    <prev_page>Prev</prev_page>
+    <next_page>Next</next_page>
+    <read>Next &raquo;</read>
+    <comments>Comments</comments>
+    <translate_upper>ABCDEFGHIJKLMNOPQRSTUVWXYZ</translate_upper>
+    <translate_lower>abcdefghijklmnopqrstuvwxyz</translate_lower>
+    <search_title>Search</search_title>
+    <search>Search</search>
+    <search_default>Search text</search_default>
+    <blog_birthday>Blog birthday</blog_birthday>
+    <admin>
+        <help>To create an administrative account, enter the password.</help>
+        <insert>Insert the top of index.php</insert>
+        <password>Password</password>
+        <title>Site Manager</title>
+        <edit_menu>Edin menu</edit_menu>
+        <create>Create article</create>
+        <edit>Edit article</edit>
+        <publish>Publish to RSS</publish>
+        <save>Save</save>
+        <no_save>Do not save</no_save>
+        <filename>The file path from the root of your blog (without the extension .md)</filename>
+        <login>Login</login>
+        <logout>Logout</logout>
+        <rss_title>Title</rss_title>
+        <rss_description>Description (HTML)</rss_description>
+        <rss_tags>Tags (comma)</rss_tags>
+    </admin>
+</i18n>

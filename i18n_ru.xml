@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet SYSTEM "entities.dtd">
+<i18n lang="ru">
+    <months>
+        <month>января</month>
+        <month>февраля</month>
+        <month>марта</month>
+        <month>апреля</month>
+        <month>мая</month>
+        <month>июня</month>
+        <month>июля</month>
+        <month>августа</month>
+        <month>сентября</month>
+        <month>октября</month>
+        <month>ноября</month>
+        <month>декабря</month>
+    </months>
+    <page_not_found>Страница не найдена</page_not_found>
+    <date>Дата</date>
+    <tag>Метка</tag>
+    <tags>Метки</tags>
+    <menu>Мои проекты</menu>
+    <prev_page>Предыдущая страница</prev_page>
+    <next_page>Следующая страница</next_page>
+    <read>Далее &raquo;</read>
+    <comments>Комментарии</comments>
+    <translate_upper>ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЪЫЭЮЯ</translate_upper>
+    <translate_lower>abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщьъыэюя</translate_lower>
+    <search_title>Поиск</search_title>
+    <search>Искать</search>
+    <search_default>Поиск по блогу</search_default>
+    <blog_birthday>Летоисчисление со дня основания блога</blog_birthday>
+    <admin>
+        <help>Для создания административного аккаунта укажите пароль.</help>
+        <insert>Вставьте в начало index.php</insert>
+        <password>Пароль</password>
+        <title>Управление сайтом</title>
+        <edit_menu>Править меню</edit_menu>
+        <create>Создать статью</create>
+        <edit>Править статью</edit>
+        <publish>Разместить в ленте</publish>
+        <save>Сохранить</save>
+        <no_save>Не сохранять статью</no_save>
+        <filename>Путь к файлу от корня блога (без расширения .md)</filename>
+        <login>Войти</login>
+        <logout>Выйти</logout>
+        <rss_title>Заголовок</rss_title>
+        <rss_description>Описание (HTML)</rss_description>
+        <rss_tags>Метки (через запятую)</rss_tags>
+    </admin>
+</i18n>

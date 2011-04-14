@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:blog="rss-markdown-blog">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output encoding="utf-8" method="html"/>
 
-<xsl:key name="tag" match="blog:tag" use="."/>
+<xsl:key name="tag" match="category" use="."/>
 
 <xsl:template match="/rss">
 <html>
@@ -11,10 +11,10 @@
 </head>
 <body style="padding: 20px;">
 <div style="width: 20%; float: right;">
-<h2>Tags</h2>
-<xsl:for-each select="/rss/channel/item/blog:tag[generate-id(.)=generate-id(key('tag', .))]">
+<h2>Метки</h2>
+<xsl:for-each select="/rss/channel/item/category[generate-id(.)=generate-id(key('tag', .))]">
 <a href="{/rss/channel/link}tag/{.}"><xsl:value-of select="."/></a>
-<xsl:if test="following-sibling::blog:tag[generate-id(.)=generate-id(key('tag', .))] or parent::item/following-sibling::item/blog:tag[generate-id(.)=generate-id(key('tag', .))]">, </xsl:if>
+<xsl:if test="following-sibling::category[generate-id(.)=generate-id(key('tag', .))] or parent::item/following-sibling::item/category[generate-id(.)=generate-id(key('tag', .))]">, </xsl:if>
 </xsl:for-each>
 </div>
 
@@ -30,7 +30,7 @@
     <hr style="margin: 20px 0;"/>
 </xsl:for-each>
 </div>
-<p><small>RSS-feed site <a href="{/rss/channel/link}"><xsl:value-of select="/rss/channel/link"/></a></small></p>
+<p><small>RSS-лента сайта <a href="http://ibnteo.klava.org/">ibnteo.klava.org</a></small></p>
 </body>
 </html>
 </xsl:template>
